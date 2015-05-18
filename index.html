@@ -16,84 +16,9 @@
     <script>
      MP.api.ready(function() {
         
-        // Events Data
-        var overallData = MP.api.events('Game Played', 'App Open', 'In-App Purchase', 'App Install', 'Registration Complete', {
-            from: moment().subtract(6, 'months'),
-            unit: 'week'
-        });
+       
         
-        $.when(overallData).done(function(overallData) { 
-          $('<span>' + "Events by Campaign Source" + '</span>').css({
-              'background': 'white',
-              'border': '1px solid #7a8195',
-              'border-radius': '5px',
-              'color': '#7a8195',
-              'display': 'inline-block',
-              'margin-bottom': '20px',
-              'margin-top': '10px',
-              'padding': '10px'            
-            }).appendTo('body');
-            
-          $('<div class="overallData"></div>').css({'width':'100%', 'float':'left'}).appendTo('body').MPChart({
-              chartType: 'line',
-              data: overallData
-          })
-          
-          var eventTable  = $('#table').css({'width':'100%', 'float':'left'}).appendTo('body').MPTable({
-            showPercentages: true,
-            firstColHeader: 'Event'
-          });
-          eventTable.MPTable('setData', overallData);
-        });
-        
-        
-        // Session Data
-        var sessionData = {}
-        var dataExported = MP.api.query('/api/2.0/segmentation/numeric/', {
-            from: moment().subtract(6, 'months'),
-            to: moment(),
-            event: 'Session End',
-            on: 'properties["Session Time"]',
-            unit: 'week'
-        }, {dataType:'json'})
-        .done(function(json) {
-          //console.log(json);
-        })
-        .fail(function($xhr) {
-          console.log('error with request', $xhr);
-        });
-        
-        $.when(dataExported).done(function(dataExtracted) {
-          var sessionData = dataExtracted["data"]["values"]
-          console.log(sessionData)
-
-          $('</div><br clear="all" /><span>' + "Session Time by Campaign Source" + '</span>').css({
-              'background': 'white',
-              'border': '1px solid #7a8195',
-              'border-radius': '5px',
-              'color': '#7a8195',
-              'display': 'inline-block',
-              'margin-bottom': '20px',
-              'margin-top': '10px',
-              'padding': '10px'            
-            }).appendTo('body');
-          
-          $('<div class="sessionData"></div>').css({'width':'100%', 'float':'left'}).appendTo('body').MPChart({
-              chartType: 'line',
-              data: sessionData
-          })
-          
-          $('<div class="sessionData"></div>').css({'width':'460px', 'float':'left'}).appendTo('body').MPChart({
-              chartType: 'bar',
-              data: sessionData
-          })
-          
-          $('<div class="sessionData"></div><br clear="all" />').css({'width':'460px', 'float':'right'}).appendTo('body').MPChart({
-              chartType: 'pie',
-              data: sessionData
-          })
-        });
-          
+       
           
         // App Install Event by Campaign Source
         event = 'App Install'
